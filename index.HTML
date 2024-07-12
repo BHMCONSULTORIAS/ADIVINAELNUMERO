@@ -65,6 +65,7 @@
         <input type="number" id="guess" placeholder="Tu adivinanza">
         <button onclick="checkGuess()">Adivinar</button>
         <div class="result" id="result"></div>
+        <button class="hidden" id="restart-button" onclick="restartGame()">Reiniciar</button>
     </div>
 
     <script>
@@ -90,11 +91,13 @@
         function checkGuess() {
             const guess = parseInt(document.getElementById('guess').value);
             const result = document.getElementById('result');
+            const restartButton = document.getElementById('restart-button');
             attempts++;
 
             if (guess === randomNumber) {
                 result.textContent = `¡Correcto! Adivinaste el número en ${attempts} intentos.`;
                 result.style.color = 'green';
+                restartButton.classList.remove('hidden');
             } else if (guess < randomNumber) {
                 result.textContent = 'El número es mayor. Inténtalo de nuevo.';
                 result.style.color = 'red';
@@ -102,6 +105,21 @@
                 result.textContent = 'El número es menor. Inténtalo de nuevo.';
                 result.style.color = 'red';
             }
+        }
+
+        function restartGame() {
+            const gameScreen = document.getElementById('game-screen');
+            const startScreen = document.getElementById('start-screen');
+            const result = document.getElementById('result');
+            const guessInput = document.getElementById('guess');
+            const restartButton = document.getElementById('restart-button');
+
+            result.textContent = '';
+            guessInput.value = '';
+            restartButton.classList.add('hidden');
+
+            gameScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
         }
     </script>
 </body>
